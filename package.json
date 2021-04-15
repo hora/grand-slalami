@@ -13,8 +13,11 @@
     "pretest-brk": "npm run build",
     "test-brk": "mocha --inspect-brk"
   },
-  "author": "",
-  "license": "ISC",
+  "author": "Horațiu Halmaghi",
+  "keywords": [
+    "blaseball"
+  ],
+  "license": "MIT",
   "dependencies": {
     "js-yaml": "^4.0.0",
     "mlustard": "^1.2.0",
