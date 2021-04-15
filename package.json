@@ -9,13 +9,16 @@
   "scripts": {
     "build": "babel ./src --out-dir ./build",
     "pretest": "npm run build",
-    "test": "mocha"
+    "test": "mocha",
+    "pretest-brk": "npm run build",
+    "test-brk": "mocha --inspect-brk"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "js-yaml": "^4.0.0",
     "mlustard": "^1.2.0",
-    "tracery-grammar": "^2.7.4"
+    "tracery-grammar": "https://github.com/hora/tracery/tarball/main"
   },
   "devDependencies": {
     "@babel/cli": "^7.13.14",

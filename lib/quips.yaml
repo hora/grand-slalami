@@ -1,0 +1,32 @@
+---
+data:
+  - inning
+  - homeTeamName
+  - awayTeamName
+  - homeTeamNickname
+  - awayTeamNickname
+  - homeScore
+  - awayScore
+  - homeOdds
+  - awayOdds
+  - homePitcherName
+  - awayPitcherName
+  - lastUpdate
+
+grammar:
+  hPitcher: '#homePitcherName#'
+  aPitcher: '#awayPitcherName#'
+  hNick: '#homeTeamNickname#'
+  aNick: '#awayTeamNickname#'
+
+  orig: '#lastUpdate#'
+
+  matchup:
+    - '#hNick# vs #aNick#'
+    - '#aNick# at #hNick#'
+
+  pitchers:
+    - '#hPitcher# pitching for #hNick.the#, #aPitcher# for #aNick.the#'
+    - 'Our pitchers are #hPitcher# for #hNick.the#, and #aPitcher# for #aNick.the#'
+
+  gameStart: '#matchup#. #pitchers#. #orig#'

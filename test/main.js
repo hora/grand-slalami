@@ -6,16 +6,18 @@ const gameEvents = require('./data/gameEvents');
 describe('grandSlalami', () => {
   describe('getComment()', () => {
 
-    let settings = {
-      seed: 0,
-      gameEvent: {},
-      mlustard: {},
-      ryeBread: {},
-    };
+    let settings;
+
+    beforeEach(() => {
+      settings = {
+        seed: 0
+      }
+    });
 
     it('should return an array', () => {
       for (const gameId in gameEvents) {
-        assert.isArray(grandSlalami.getComment(gameEvents[gameId]));
+        settings.gameEvent = gameEvents[gameId];
+        assert.isArray(grandSlalami.getComment(settings));
       }
     });
 
@@ -32,13 +34,11 @@ describe('grandSlalami', () => {
 
       const comment = grandSlalami.getComment(settings);
 
-      const expected = [
-        "New York Millenials vs. Hades Tigers.",
-        "Patty Fox pitching for the Millenials, Yazmin Mason for the Tigers.",
-        "Play ball!"
-      ];
+      const expected = "Millennials vs Tigers. " +
+        "Patty Fox pitching for the Millennials, Yazmin Mason for the Tigers. " +
+        "Play ball!";
 
-      assert.deepEqual(comment, expected);
+      assert.equal(comment, expected);
     });
 
   });
