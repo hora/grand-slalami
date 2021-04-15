@@ -22,7 +22,32 @@ const initGrammar = (seed, gameEvent) => {
 
   // populate data from gameEvent
   for (const field of quips.data) {
-    grammar.pushRules(field, [gameEvent[field]]);
+    let data = gameEvent[field];
+
+    if (data !== undefined) {
+
+      // some data needs massaging
+      switch (field) {
+
+        case 'inning':
+          data++;
+          data = data.toString();
+          break;
+
+        case 'topOfInning':
+          data = data ? 'top' : 'bottom';
+          break;
+
+        case 'halfInningOuts':
+          data = data.toString();
+          break;
+
+        default:
+          break;
+      }
+
+      grammar.pushRules(field, data);
+    }
   }
 
   // build grammar
@@ -38,9 +63,7 @@ const initGrammar = (seed, gameEvent) => {
 };
 
 const buildComment = (gameEvent, mlustard, grammar) => {
-  let comment = [];
-
-  debugger
+  let comment = '';
 
   // check for game status
   switch (mlustard.gameStatus) {
@@ -51,6 +74,12 @@ const buildComment = (gameEvent, mlustard, grammar) => {
 
     default:
       break;
+  }
+
+  // check for outs
+  if (mlustard.out) {
+    //debugger
+    comment = grammar.flatten('#out#');
   }
 
   return comment;
@@ -64,12 +93,8 @@ const buildComment = (gameEvent, mlustard, grammar) => {
  */
 const getComment = (settings) => {
   if (!settings.gameEvent) {
-    return [];
+    return '';
   }
-
-  //console.log('\n\n\n')
-  //console.log(settings)
-  //console.log('\n\n\n')
 
   settings.mlustard = settings.mlustard || mlustard.analyzeGameEvent(settings.gameEvent);
 

@@ -40,7 +40,30 @@ var initGrammar = function initGrammar(seed, gameEvent) {
   try {
     for (_iterator.s(); !(_step = _iterator.n()).done;) {
       var _field = _step.value;
-      grammar.pushRules(_field, [gameEvent[_field]]);
+      var data = gameEvent[_field];
+
+      if (data !== undefined) {
+        // some data needs massaging
+        switch (_field) {
+          case 'inning':
+            data++;
+            data = data.toString();
+            break;
+
+          case 'topOfInning':
+            data = data ? 'top' : 'bottom';
+            break;
+
+          case 'halfInningOuts':
+            data = data.toString();
+            break;
+
+          default:
+            break;
+        }
+
+        grammar.pushRules(_field, data);
+      }
     } // build grammar
 
   } catch (err) {
@@ -60,8 +83,7 @@ var initGrammar = function initGrammar(seed, gameEvent) {
 };
 
 var buildComment = function buildComment(gameEvent, mlustard, grammar) {
-  var comment = [];
-  debugger; // check for game status
+  var comment = ''; // check for game status
 
   switch (mlustard.gameStatus) {
     case 'beforeFirstPitch':
@@ -70,6 +92,12 @@ var buildComment = function buildComment(gameEvent, mlustard, grammar) {
 
     default:
       break;
+  } // check for outs
+
+
+  if (mlustard.out) {
+    //debugger
+    comment = grammar.flatten('#out#');
   }
 
   return comment;
@@ -84,11 +112,8 @@ var buildComment = function buildComment(gameEvent, mlustard, grammar) {
 
 var getComment = function getComment(settings) {
   if (!settings.gameEvent) {
-    return [];
-  } //console.log('\n\n\n')
-  //console.log(settings)
-  //console.log('\n\n\n')
-
+    return '';
+  }
 
   settings.mlustard = settings.mlustard || mlustard.analyzeGameEvent(settings.gameEvent);
   var grammar = initGrammar(settings.seed, settings.gameEvent);

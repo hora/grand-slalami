@@ -1,6 +1,8 @@
 ---
 data:
   - inning
+  - topOfInning
+  - halfInningOuts
   - homeTeamName
   - awayTeamName
   - homeTeamNickname
@@ -29,4 +31,11 @@ grammar:
     - '#hPitcher# pitching for #hNick.the#, #aPitcher# for #aNick.the#'
     - 'Our pitchers are #hPitcher# for #hNick.the#, and #aPitcher# for #aNick.the#'
 
+  topOrBot: '#topOfInning#'
+  inningFull: '#topOrBot# of #inning#'
+
+  outs: '#halfInningOuts.outs#'
+
   gameStart: '#matchup#. #pitchers#. #orig#'
+
+  out: '#orig# #inningFull.capitalize#, #outs#.'
