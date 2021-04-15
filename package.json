@@ -1,0 +1,29 @@
+{
+  "name": "grand-slalami",
+  "version": "1.0.0",
+  "description": "",
+  "main": "build/grand-slalami.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "build": "babel ./src --out-dir ./build",
+    "pretest": "npm run build",
+    "test": "mocha"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "mlustard": "^1.2.0",
+    "tracery-grammar": "^2.7.4"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.13.14",
+    "@babel/core": "^7.13.15",
+    "@babel/node": "^7.13.13",
+    "@babel/preset-env": "^7.13.15",
+    "@babel/runtime": "^7.13.10",
+    "chai": "^4.3.4",
+    "mocha": "^8.3.2"
+  }
+}
