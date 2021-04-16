@@ -21,6 +21,10 @@ grammar:
   hNick: '#homeTeamNickname#'
   aNick: '#awayTeamNickname#'
 
+  # cPitcher is the current pitcher
+  # pNick is the nickname of the pitching team
+  # bNick is the nickname of the batting team
+
   orig: '#lastUpdate#'
 
   matchup:
@@ -37,5 +41,6 @@ grammar:
   outs: '#halfInningOuts.outs#'
 
   gameStart: '#matchup#. #pitchers#. #orig#'
+  inningStart: '#orig# #cPitcher# pitching for #pNick.the#.'
 
   out: '#orig# #inningFull.capitalize#, #outs#.'
