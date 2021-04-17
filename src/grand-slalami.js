@@ -39,6 +39,8 @@ const initGrammar = (seed, gameEvent) => {
           break;
 
         case 'halfInningOuts':
+        case 'homeScore':
+        case 'awayScore':
           data = data.toString();
           break;
 
@@ -66,6 +68,28 @@ const initGrammar = (seed, gameEvent) => {
   const bNick = gameEvent.topOfInning ? '#aNick#' : '#hNick#';
   grammar.pushRules('bNick', bNick);
 
+  // leading & trailing team nicknames and scores
+  let lTeam;
+  let tTeam;
+  let lScore;
+  let tScore;
+
+  if (gameEvent.awayScore > gameEvent.homeScore) {
+    lTeam = '#aNick#';
+    tTeam = '#hNick#';
+    lScore = '#aScore#';
+    tScore = '#hScore#';
+  } else {
+    lTeam = '#hNick#';
+    tTeam = '#aNick#';
+    lScore = '#hScore#';
+    tScore = '#aScore#';
+  }
+  grammar.pushRules('lTeam', lTeam);
+  grammar.pushRules('tTeam', tTeam);
+  grammar.pushRules('lScore', lScore);
+  grammar.pushRules('tScore', tScore);
+
   // build grammar
   for (const field in quips.grammar) {
     grammar.pushRules(field, quips.grammar[field]);
@@ -89,6 +113,8 @@ const buildComment = (gameEvent, mlustard, grammar) => {
       break;
 
     case 'firstHalfInningStart':
+      // don't modify if it's the top of 1 since pitching info
+      // has already been introduced at the start of the game
       if (gameEvent.inning !== 0) {
         comment = grammar.flatten('#inningStart#');
       }
@@ -104,8 +130,12 @@ const buildComment = (gameEvent, mlustard, grammar) => {
 
   // check for outs
   if (mlustard.out) {
-    //debugger
     comment = grammar.flatten('#out#');
+  }
+
+  // check for score
+  if (mlustard.runsScored !== 0) {
+    comment = grammar.flatten('#score#');
   }
 
   // return a comment if one was created, OR

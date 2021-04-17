@@ -58,6 +58,7 @@ describe('grandSlalami', () => {
 
       assert.equal(com1, exp1);
 
+      // reset settings
       settings.gameEvent = gameEvents.secondHalf;
       settings.mlustard = undefined;
       const com2 = grandSlalami.getComment(settings);
@@ -73,6 +74,15 @@ describe('grandSlalami', () => {
       const exp1 = "Top of 1, LA Unlimited Tacos batting.";
 
       assert.equal(com1, exp1);
+    });
+
+    it('should update the total score on runs', () => {
+      settings.gameEvent = gameEvents.dbl;
+      const commentary = grandSlalami.getComment(settings);
+      const expected = "Ren Morin hits a Double! 1 scores. " +
+        "It's the Tigers 1 and the Millennials 0.";
+
+      assert.equal(commentary, expected);
     });
 
   });

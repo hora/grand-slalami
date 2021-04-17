@@ -16,31 +16,40 @@ data:
   - lastUpdate
 
 grammar:
-  hPitcher: '#homePitcherName#'
-  aPitcher: '#awayPitcherName#'
-  hNick: '#homeTeamNickname#'
-  aNick: '#awayTeamNickname#'
+  # shortcuts
+  # ---------
+  hPitcher: "#homePitcherName#"
+  aPitcher: "#awayPitcherName#"
+  hNick: "#homeTeamNickname#"
+  aNick: "#awayTeamNickname#"
+  hScore: "#homeScore#"
+  aScore: "#awayScore#"
+  # cPitcher: the current pitcher
+  # pNick: the nickname of the pitching team
+  # bNick: the nickname of the batting team
+  # lTeam: the nickname of the team leading in the score, or the home team
+  # tTeam: the nickname of the team trailing in the score, or the away team
+  # lScore: the score of the leading team
+  # tScore: the score of the trailing team
 
-  # cPitcher is the current pitcher
-  # pNick is the nickname of the pitching team
-  # bNick is the nickname of the batting team
-
-  orig: '#lastUpdate#'
+  orig: "#lastUpdate#"
 
   matchup:
-    - '#hNick# vs #aNick#'
-    - '#aNick# at #hNick#'
+    - "#hNick# vs #aNick#"
+    - "#aNick# at #hNick#"
 
   pitchers:
-    - '#hPitcher# pitching for #hNick.the#, #aPitcher# for #aNick.the#'
-    - 'Our pitchers are #hPitcher# for #hNick.the#, and #aPitcher# for #aNick.the#'
+    - "#hPitcher# pitching for #hNick.the#, #aPitcher# for #aNick.the#"
+    - "Our pitchers are #hPitcher# for #hNick.the#, and #aPitcher# for #aNick.the#"
 
-  topOrBot: '#topOfInning#'
-  inningFull: '#topOrBot# of #inning#'
+  topOrBot: "#topOfInning#"
+  inningFull: "#topOrBot# of #inning#"
 
-  outs: '#halfInningOuts.outs#'
+  outs: "#halfInningOuts.outs#"
 
-  gameStart: '#matchup#. #pitchers#. #orig#'
-  inningStart: '#orig# #cPitcher# pitching for #pNick.the#.'
+  gameStart: "#matchup#. #pitchers#. #orig#"
+  inningStart: "#orig# #cPitcher# pitching for #pNick.the#."
 
-  out: '#orig# #inningFull.capitalize#, #outs#.'
+  out: "#orig# #inningFull.capitalize#, #outs#."
+
+  score: "#orig# It's #lTeam.the# #lScore# and #tTeam.the# #tScore#."
