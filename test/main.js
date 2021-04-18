@@ -128,5 +128,17 @@ describe('grandSlalami', () => {
       assert.equal(commentary, expected);
     });
 
+    it('should override bases loaded comment with blases loaded', () => {
+      settings.gameEvent = gameEvents.blasesLoaded;
+      settings.overrides = {
+        basesLoaded: 'Blases are loaded!'
+      };
+      const commentary = grandSlalami.getComment(settings);
+      const expected = "Kurt Crueller batting for the Magic. " +
+        "Blases are loaded!";
+
+      assert.equal(commentary, expected);
+    });
+
   });
 });

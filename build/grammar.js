@@ -18,6 +18,7 @@ var init = function init(settings) {
   var seed = settings.seed;
   var gameEvent = settings.gameEvent;
   var mlustard = settings.mlustard;
+  var overrides = settings.overrides;
 
   if (seed !== undefined) {
     tracery.setRandom(function () {
@@ -41,12 +42,12 @@ var init = function init(settings) {
 
   try {
     for (_iterator.s(); !(_step = _iterator.n()).done;) {
-      var _field = _step.value;
-      var data = gameEvent[_field];
+      var _field2 = _step.value;
+      var data = gameEvent[_field2];
 
       if (data !== undefined) {
         // some data needs massaging
-        switch (_field) {
+        switch (_field2) {
           case 'inning':
             data++;
             data = data.toString();
@@ -66,7 +67,7 @@ var init = function init(settings) {
             break;
         }
 
-        grammar.pushRules(_field, data);
+        grammar.pushRules(_field2, data);
       }
     } // current pitcher
 
@@ -130,6 +131,11 @@ var init = function init(settings) {
 
   for (var field in quips.grammar) {
     grammar.pushRules(field, quips.grammar[field]);
+  } // do quip overrides
+
+
+  for (var _field in overrides) {
+    grammar.pushRules(_field, overrides[_field]);
   } // add mods
 
 

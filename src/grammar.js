@@ -8,6 +8,7 @@ const init = (settings) => {
   const seed = settings.seed;
   const gameEvent = settings.gameEvent;
   const mlustard = settings.mlustard;
+  const overrides = settings.overrides;
 
   if (seed !== undefined) {
     tracery.setRandom(() => seed);
@@ -112,6 +113,11 @@ const init = (settings) => {
   // build quips grammar
   for (const field in quips.grammar) {
     grammar.pushRules(field, quips.grammar[field]);
+  }
+
+  // do quip overrides
+  for (const field in overrides) {
+    grammar.pushRules(field, overrides[field]);
   }
 
   // add mods

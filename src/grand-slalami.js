@@ -8,6 +8,9 @@ const commentary = require('./commentary');
  *   - gameEvent: the game event object (from the stream or chronicler)
  *   - mlustard (optional): mlustard data for the gameEvent
  *   - seed (optional): a seed, for deterministic comment generation
+ *   - level (optional, defaults to 'minimal'): the commentary level, one of
+ *     - minimal: adds a few comments to update on game status at key comments
+ *   - overrides (optional): object with quip overrides
  */
 const getComment = (settings) => {
   if (!settings.gameEvent) {
@@ -15,6 +18,8 @@ const getComment = (settings) => {
   }
 
   settings.mlustard = settings.mlustard || mlustard.analyzeGameEvent(settings.gameEvent);
+  settings.level = settings.level || 'minimal';
+  settings.overrides = settings.overrides || {};
 
   const gr = grammar.init(settings);
 
