@@ -1,0 +1,16 @@
+---
+# will capture the following game event props as tracery rules
+- inning
+- topOfInning
+- halfInningOuts
+- homeTeamName
+- awayTeamName
+- homeTeamNickname
+- awayTeamNickname
+- homeScore
+- awayScore
+- homeOdds
+- awayOdds
+- homePitcherName
+- awayPitcherName
+- lastUpdate

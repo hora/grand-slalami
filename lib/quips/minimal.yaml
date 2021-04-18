@@ -1,0 +1,34 @@
+---
+# game general
+# ------------
+matchup:
+  - "#hNick# vs #aNick#"
+  - "#aNick# at #hNick#"
+# will be top or bottom depending on inning status
+topOrBot: "#topOfInning#"
+inningFull: "#topOrBot# of #inning#"
+gameStart: "#matchup#. #pitchers#. #original#"
+score: "#original# It's #lTeam.the# #lScore# and #tTeam.the# #tScore#."
+inningStart: "#original# #cPitcher# pitching for #pNick.the#."
+# more specific inning rules will override the general one
+inningOneStart: "#original#"
+
+# players
+# -------
+pitchers:
+  - "#hPitcher# pitching for #hNick.the#, #aPitcher# for #aNick.the#"
+  - "Our pitchers are #hPitcher# for #hNick.the#, and #aPitcher# for #aNick.the#"
+
+# outs
+# ----
+out: "#original# #inningFull.capitalize#, #outs#."
+outs: "#halfInningOuts.outs#"
+# more specifc outs will override general out quip
+lastOutOfInning: "#original#"
+
+# runners
+# -------
+batterUpRunners: "#original# #runners.runnerPluralize#"
+# runners will be either runnersOnBase or basesLoaded
+runnersOnBase: "Runner on #basesOcc.and#."
+basesLoaded: "Bases are loaded!"

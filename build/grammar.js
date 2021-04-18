@@ -19,6 +19,7 @@ var init = function init(settings) {
   var gameEvent = settings.gameEvent;
   var mlustard = settings.mlustard;
   var overrides = settings.overrides;
+  var level = settings.level;
 
   if (seed !== undefined) {
     tracery.setRandom(function () {
@@ -29,7 +30,9 @@ var init = function init(settings) {
   var quips = {};
 
   try {
-    quips = yaml.load(fs.readFileSync("".concat(__dirname, "/../lib/quips.yaml"), 'utf-8'));
+    quips.data = yaml.load(fs.readFileSync("".concat(__dirname, "/../lib/quips/data.yaml"), 'utf-8'));
+    quips.shortcuts = yaml.load(fs.readFileSync("".concat(__dirname, "/../lib/quips/shortcuts.yaml"), 'utf-8'));
+    quips.grammar = yaml.load(fs.readFileSync("".concat(__dirname, "/../lib/quips/").concat(level, ".yaml"), 'utf-8'));
   } catch (e) {
     console.error(e);
     return;
@@ -42,12 +45,12 @@ var init = function init(settings) {
 
   try {
     for (_iterator.s(); !(_step = _iterator.n()).done;) {
-      var _field2 = _step.value;
-      var data = gameEvent[_field2];
+      var _field3 = _step.value;
+      var data = gameEvent[_field3];
 
       if (data !== undefined) {
         // some data needs massaging
-        switch (_field2) {
+        switch (_field3) {
           case 'inning':
             data++;
             data = data.toString();
@@ -67,7 +70,7 @@ var init = function init(settings) {
             break;
         }
 
-        grammar.pushRules(_field2, data);
+        grammar.pushRules(_field3, data);
       }
     } // current pitcher
 
@@ -127,15 +130,20 @@ var init = function init(settings) {
     }
   }
 
-  grammar.pushRules('basesOcc', bases.trim()); // build quips grammar
+  grammar.pushRules('basesOcc', bases.trim()); // build quips shortcuts
 
-  for (var field in quips.grammar) {
-    grammar.pushRules(field, quips.grammar[field]);
+  for (var field in quips.shortcuts) {
+    grammar.pushRules(field, quips.shortcuts[field]);
+  } // build quips grammar
+
+
+  for (var _field in quips.grammar) {
+    grammar.pushRules(_field, quips.grammar[_field]);
   } // do quip overrides
 
 
-  for (var _field in overrides) {
-    grammar.pushRules(_field, overrides[_field]);
+  for (var _field2 in overrides) {
+    grammar.pushRules(_field2, overrides[_field2]);
   } // add mods
 
 

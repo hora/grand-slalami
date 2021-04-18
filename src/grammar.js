@@ -9,6 +9,7 @@ const init = (settings) => {
   const gameEvent = settings.gameEvent;
   const mlustard = settings.mlustard;
   const overrides = settings.overrides;
+  const level = settings.level;
 
   if (seed !== undefined) {
     tracery.setRandom(() => seed);
@@ -17,7 +18,9 @@ const init = (settings) => {
   let quips = {};
 
   try {
-    quips = yaml.load(fs.readFileSync(`${__dirname}/../lib/quips.yaml`, 'utf-8'));
+    quips.data = yaml.load(fs.readFileSync(`${__dirname}/../lib/quips/data.yaml`, 'utf-8'));
+    quips.shortcuts = yaml.load(fs.readFileSync(`${__dirname}/../lib/quips/shortcuts.yaml`, 'utf-8'));
+    quips.grammar = yaml.load(fs.readFileSync(`${__dirname}/../lib/quips/${level}.yaml`, 'utf-8'));
   } catch (e) {
     console.error(e);
     return;
@@ -110,10 +113,16 @@ const init = (settings) => {
   }
   grammar.pushRules('basesOcc', bases.trim());
 
+  // build quips shortcuts
+  for (const field in quips.shortcuts) {
+    grammar.pushRules(field, quips.shortcuts[field]);
+  }
+
   // build quips grammar
   for (const field in quips.grammar) {
     grammar.pushRules(field, quips.grammar[field]);
   }
+
 
   // do quip overrides
   for (const field in overrides) {

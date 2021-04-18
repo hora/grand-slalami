@@ -1,0 +1,19 @@
+---
+hPitcher: "#homePitcherName#"
+aPitcher: "#awayPitcherName#"
+hNick: "#homeTeamNickname#"
+aNick: "#awayTeamNickname#"
+hScore: "#homeScore#"
+aScore: "#awayScore#"
+# cPitcher: the current pitcher
+# pNick: the nickname of the pitching team
+# bNick: the nickname of the batting team
+# lTeam: the nickname of the team leading in the score, or the home team
+# tTeam: the nickname of the team trailing in the score, or the away team
+# lScore: the score of the leading team
+# tScore: the score of the trailing team
+# basesOcc: which bases are occupied; will be string with just the base names
+#   ex: "first third"
+
+# the original comment from blaseball.com
+original: "#lastUpdate#"
