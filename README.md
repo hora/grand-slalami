@@ -13,7 +13,7 @@ There is a plan for implementing different levels of commenting (for example,
 different levels of colour commentary).
 Currently, this returns a minimal amount of enhanced commentary to make it
 possible to follow a Blaseball game by audio only.
-See [/lib/quips](tree/main/lib/quips) for when comments will be enhanced.
+See [/lib/quips](lib/quips) for when comments will be enhanced.
 
 ## Contributors
 
