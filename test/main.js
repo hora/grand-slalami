@@ -85,5 +85,40 @@ describe('grandSlalami', () => {
       assert.equal(commentary, expected);
     });
 
+    it('should not mention runners when a batter shows up to the plate if there are none', () => {
+      settings.gameEvent = gameEvents.batter;
+      const commentary = grandSlalami.getComment(settings);
+      const expected = "M---w-ll Mason batting for the Tacos.";
+
+      assert.equal(commentary, expected);
+    });
+
+    it('should mention runners when a batter shows up to the plate if there are runners on base', () => {
+      settings.gameEvent = gameEvents.batterRunners;
+      const commentary = grandSlalami.getComment(settings);
+      const expected = "Halexandrey Walton batting for the Tacos. " +
+        "Runner on second.";
+
+      assert.equal(commentary, expected);
+    });
+
+    it('should mention runners when a batter shows up to the plate if there are multiple runners on base', () => {
+      settings.gameEvent = gameEvents.multipleRunners;
+      const commentary = grandSlalami.getComment(settings);
+      const expected = "M---w-ll Mason batting for the Tacos. " +
+        "Runners on first and third.";
+
+      assert.equal(commentary, expected);
+    });
+
+    it('should mention bases are loaded when a batter shows up to the plate when the bases are loaded', () => {
+      settings.gameEvent = gameEvents.blasesLoaded;
+      const commentary = grandSlalami.getComment(settings);
+      const expected = "Kurt Crueller batting for the Magic. " +
+        "Bases are loaded!";
+
+      assert.equal(commentary, expected);
+    });
+
   });
 });

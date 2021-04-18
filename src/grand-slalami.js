@@ -4,7 +4,7 @@ const mods = require('./tracery-mods');
 const yaml = require('js-yaml');
 const fs = require('fs');
 
-const initGrammar = (seed, gameEvent) => {
+const initGrammar = (seed, gameEvent, mlustard) => {
   if (seed !== undefined) {
     tracery.setRandom(() => seed);
   }
@@ -90,6 +90,21 @@ const initGrammar = (seed, gameEvent) => {
   grammar.pushRules('lScore', lScore);
   grammar.pushRules('tScore', tScore);
 
+  // set base runners
+  if (gameEvent.baserunnerCount >= 3) {
+    grammar.pushRules('runners', '#basesLoaded#');
+  } else if (gameEvent.baserunnerCount > 0) {
+    grammar.pushRules('runners', '#runnersOnBase#');
+  }
+
+  let bases = '';
+  for (let base of Object.keys(mlustard.baseRunners)) {
+    if (mlustard.baseRunners[base].playerId) {
+      bases += `${base} `;
+    }
+  }
+  grammar.pushRules('basesOcc', bases.trim());
+
   // build grammar
   for (const field in quips.grammar) {
     grammar.pushRules(field, quips.grammar[field]);
@@ -138,6 +153,11 @@ const buildComment = (gameEvent, mlustard, grammar) => {
     comment = grammar.flatten('#score#');
   }
 
+  // check if a batter just showed up at the plate
+  if (mlustard.batterUp && gameEvent.baserunnerCount) {
+    comment = grammar.flatten('#batterUpRunners#');
+  }
+
   // return a comment if one was created, OR
   // the original text if it exists, OTHERWISE
   // an empty string
@@ -159,7 +179,7 @@ const getComment = (settings) => {
 
   settings.mlustard = settings.mlustard || mlustard.analyzeGameEvent(settings.gameEvent);
 
-  let grammar = initGrammar(settings.seed, settings.gameEvent);
+  let grammar = initGrammar(settings.seed, settings.gameEvent, settings.mlustard);
 
   return buildComment(settings.gameEvent, settings.mlustard, grammar);
 };

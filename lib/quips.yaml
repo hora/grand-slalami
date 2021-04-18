@@ -31,6 +31,8 @@ grammar:
   # tTeam: the nickname of the team trailing in the score, or the away team
   # lScore: the score of the leading team
   # tScore: the score of the trailing team
+  # basesOcc: which bases are occupied; will be string with just the base names
+  #   ex: "first third"
 
   orig: "#lastUpdate#"
 
@@ -53,3 +55,9 @@ grammar:
   out: "#orig# #inningFull.capitalize#, #outs#."
 
   score: "#orig# It's #lTeam.the# #lScore# and #tTeam.the# #tScore#."
+
+  batterUpRunners: "#orig# #runners.pluralize#"
+  # runners will be either runnersOnBase or basesLoaded
+  runnersOnBase: "Runner on #basesOcc.and#."
+  basesLoaded: "Bases are loaded!"
+

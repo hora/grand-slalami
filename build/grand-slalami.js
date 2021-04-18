@@ -16,7 +16,7 @@ var yaml = require('js-yaml');
 
 var fs = require('fs');
 
-var initGrammar = function initGrammar(seed, gameEvent) {
+var initGrammar = function initGrammar(seed, gameEvent, mlustard) {
   if (seed !== undefined) {
     tracery.setRandom(function () {
       return seed;
@@ -106,7 +106,25 @@ var initGrammar = function initGrammar(seed, gameEvent) {
   grammar.pushRules('lTeam', lTeam);
   grammar.pushRules('tTeam', tTeam);
   grammar.pushRules('lScore', lScore);
-  grammar.pushRules('tScore', tScore); // build grammar
+  grammar.pushRules('tScore', tScore); // set base runners
+
+  if (gameEvent.baserunnerCount >= 3) {
+    grammar.pushRules('runners', '#basesLoaded#');
+  } else if (gameEvent.baserunnerCount > 0) {
+    grammar.pushRules('runners', '#runnersOnBase#');
+  }
+
+  var bases = '';
+
+  for (var _i = 0, _Object$keys = Object.keys(mlustard.baseRunners); _i < _Object$keys.length; _i++) {
+    var base = _Object$keys[_i];
+
+    if (mlustard.baseRunners[base].playerId) {
+      bases += "".concat(base, " ");
+    }
+  }
+
+  grammar.pushRules('basesOcc', bases.trim()); // build grammar
 
   for (var field in quips.grammar) {
     grammar.pushRules(field, quips.grammar[field]);
@@ -151,6 +169,11 @@ var buildComment = function buildComment(gameEvent, mlustard, grammar) {
 
   if (mlustard.runsScored !== 0) {
     comment = grammar.flatten('#score#');
+  } // check if a batter just showed up at the plate
+
+
+  if (mlustard.batterUp && gameEvent.baserunnerCount) {
+    comment = grammar.flatten('#batterUpRunners#');
   } // return a comment if one was created, OR
   // the original text if it exists, OTHERWISE
   // an empty string
@@ -173,7 +196,7 @@ var getComment = function getComment(settings) {
   }
 
   settings.mlustard = settings.mlustard || mlustard.analyzeGameEvent(settings.gameEvent);
-  var grammar = initGrammar(settings.seed, settings.gameEvent);
+  var grammar = initGrammar(settings.seed, settings.gameEvent, settings.mlustard);
   return buildComment(settings.gameEvent, settings.mlustard, grammar);
 };
 
