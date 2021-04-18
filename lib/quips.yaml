@@ -1,4 +1,5 @@
 ---
+# will capture the following game event props as tracery rules
 data:
   - inning
   - topOfInning
@@ -34,29 +35,35 @@ grammar:
   # basesOcc: which bases are occupied; will be string with just the base names
   #   ex: "first third"
 
-  orig: "#lastUpdate#"
+  # the original comment from blaseball.com
+  original: "#lastUpdate#"
 
+  # game general
+  # ------------
   matchup:
     - "#hNick# vs #aNick#"
     - "#aNick# at #hNick#"
+  # will be top or bottom depending on inning status
+  topOrBot: "#topOfInning#"
+  inningFull: "#topOrBot# of #inning#"
+  gameStart: "#matchup#. #pitchers#. #original#"
+  inningStart: "#original# #cPitcher# pitching for #pNick.the#."
+  score: "#original# It's #lTeam.the# #lScore# and #tTeam.the# #tScore#."
 
+  # players
+  # -------
   pitchers:
     - "#hPitcher# pitching for #hNick.the#, #aPitcher# for #aNick.the#"
     - "Our pitchers are #hPitcher# for #hNick.the#, and #aPitcher# for #aNick.the#"
 
-  topOrBot: "#topOfInning#"
-  inningFull: "#topOrBot# of #inning#"
-
+  # outs
+  # ----
   outs: "#halfInningOuts.outs#"
+  out: "#original# #inningFull.capitalize#, #outs#."
 
-  gameStart: "#matchup#. #pitchers#. #orig#"
-  inningStart: "#orig# #cPitcher# pitching for #pNick.the#."
-
-  out: "#orig# #inningFull.capitalize#, #outs#."
-
-  score: "#orig# It's #lTeam.the# #lScore# and #tTeam.the# #tScore#."
-
-  batterUpRunners: "#orig# #runners.pluralize#"
+  # runners
+  # -------
+  batterUpRunners: "#original# #runners.pluralize#"
   # runners will be either runnersOnBase or basesLoaded
   runnersOnBase: "Runner on #basesOcc.and#."
   basesLoaded: "Bases are loaded!"
