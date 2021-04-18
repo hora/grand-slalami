@@ -58,12 +58,14 @@ grammar:
 
   # outs
   # ----
-  outs: "#halfInningOuts.outs#"
   out: "#original# #inningFull.capitalize#, #outs#."
+  outs: "#halfInningOuts.outs#"
+  # more specifc outs will override general out quip
+  lastOutOfInning: "#original#"
 
   # runners
   # -------
-  batterUpRunners: "#original# #runners.pluralize#"
+  batterUpRunners: "#original# #runners.runnerPluralize#"
   # runners will be either runnersOnBase or basesLoaded
   runnersOnBase: "Runner on #basesOcc.and#."
   basesLoaded: "Bases are loaded!"

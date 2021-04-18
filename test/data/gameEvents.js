@@ -3615,7 +3615,7 @@ module.exports = {
   flyout,
   groundOut,
   strikeOut,
-  lastOut: groundOut,
+  lastOutInning: groundOut,
   secondHalf,
   firstHalf,
   hit,

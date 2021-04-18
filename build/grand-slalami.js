@@ -163,7 +163,11 @@ var buildComment = function buildComment(gameEvent, mlustard, grammar) {
 
 
   if (mlustard.out) {
-    comment = grammar.flatten('#out#');
+    if (mlustard.gameStatus === 'halfInningEnd') {
+      comment = grammar.flatten('#lastOutOfInning#');
+    } else {
+      comment = grammar.flatten('#out#');
+    }
   } // check for score
 
 

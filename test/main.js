@@ -50,6 +50,14 @@ describe('grandSlalami', () => {
       assert.equal(comment, expected);
     });
 
+    it('should return original comment on last out of inning', () => {
+      settings.gameEvent = gameEvents.lastOutInning;
+      const comment = grandSlalami.getComment(settings);
+      const expected = "Spears Taylor hit a ground out to Thomas Dracaena.";
+
+      assert.equal(comment, expected);
+    });
+
     it('should mention the pitcher on half inning start', () => {
       settings.gameEvent = gameEvents.firstHalf;
       const com1 = grandSlalami.getComment(settings);

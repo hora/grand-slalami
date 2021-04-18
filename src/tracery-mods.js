@@ -3,6 +3,7 @@ module.exports = {
     return `the ${s}`;
   },
 
+  // counts the # of outs and pluralizes accordingly
   outs: (s) => {
     if (s === '1') {
       return `${s} out`;
@@ -17,8 +18,7 @@ module.exports = {
   },
 
   // for pluralizing runner(s) on first[, second and third]
-  // todo: find a cleaner way of doing this
-  pluralize: (s) => {
+  runnerPluralize: (s) => {
     if (s.indexOf(',') >= 0 || s.indexOf('and') >= 0) {
       return s.replace('Runner', 'Runners');
     } else {

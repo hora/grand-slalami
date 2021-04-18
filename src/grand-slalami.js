@@ -145,7 +145,11 @@ const buildComment = (gameEvent, mlustard, grammar) => {
 
   // check for outs
   if (mlustard.out) {
-    comment = grammar.flatten('#out#');
+    if (mlustard.gameStatus === 'halfInningEnd') {
+      comment = grammar.flatten('#lastOutOfInning#');
+    } else {
+      comment = grammar.flatten('#out#');
+    }
   }
 
   // check for score
