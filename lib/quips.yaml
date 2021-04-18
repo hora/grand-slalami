@@ -47,8 +47,10 @@ grammar:
   topOrBot: "#topOfInning#"
   inningFull: "#topOrBot# of #inning#"
   gameStart: "#matchup#. #pitchers#. #original#"
-  inningStart: "#original# #cPitcher# pitching for #pNick.the#."
   score: "#original# It's #lTeam.the# #lScore# and #tTeam.the# #tScore#."
+  inningStart: "#original# #cPitcher# pitching for #pNick.the#."
+  # more specific inning rules will override the general one
+  inningOneStart: "#original#"
 
   # players
   # -------
