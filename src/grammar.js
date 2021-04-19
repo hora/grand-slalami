@@ -1,9 +1,7 @@
-//const yaml = require('js-yaml');
-//const fs = require('fs');
 const tracery = require('tracery-grammar');
 
 const mods = require('./tracery-mods');
-const quips = require('./quips');
+const quips = require('./quips.json');
 
 const init = (settings) => {
   const seed = settings.seed;
@@ -15,20 +13,6 @@ const init = (settings) => {
   if (seed !== undefined) {
     tracery.setRandom(() => seed);
   }
-
-
-  //let quips = JSON.parse(quipsData);
-
-  //let quips = {};
-
-  //try {
-    //quips.data = yaml.load(fs.readFileSync(`${__dirname}/../lib/quips/data.yaml`, 'utf-8'));
-    //quips.shortcuts = yaml.load(fs.readFileSync(`${__dirname}/../lib/quips/shortcuts.yaml`, 'utf-8'));
-    //quips.grammar = yaml.load(fs.readFileSync(`${__dirname}/../lib/quips/${level}.yaml`, 'utf-8'));
-  //} catch (e) {
-    //console.error(e);
-    //return;
-  //}
 
   let grammar = tracery.createGrammar({});
 
