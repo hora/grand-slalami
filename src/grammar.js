@@ -26,8 +26,7 @@ const init = (settings) => {
       switch (field) {
 
         case 'inning':
-          data++;
-          data = data.toString();
+          data = (data + 1).toString();
           break;
 
         case 'topOfInning':
