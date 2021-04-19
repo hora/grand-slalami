@@ -1,8 +1,9 @@
-const yaml = require('js-yaml');
-const fs = require('fs');
+//const yaml = require('js-yaml');
+//const fs = require('fs');
 const tracery = require('tracery-grammar');
 
 const mods = require('./tracery-mods');
+const quips = require('./quips');
 
 const init = (settings) => {
   const seed = settings.seed;
@@ -15,16 +16,19 @@ const init = (settings) => {
     tracery.setRandom(() => seed);
   }
 
-  let quips = {};
 
-  try {
-    quips.data = yaml.load(fs.readFileSync(`${__dirname}/../lib/quips/data.yaml`, 'utf-8'));
-    quips.shortcuts = yaml.load(fs.readFileSync(`${__dirname}/../lib/quips/shortcuts.yaml`, 'utf-8'));
-    quips.grammar = yaml.load(fs.readFileSync(`${__dirname}/../lib/quips/${level}.yaml`, 'utf-8'));
-  } catch (e) {
-    console.error(e);
-    return;
-  }
+  //let quips = JSON.parse(quipsData);
+
+  //let quips = {};
+
+  //try {
+    //quips.data = yaml.load(fs.readFileSync(`${__dirname}/../lib/quips/data.yaml`, 'utf-8'));
+    //quips.shortcuts = yaml.load(fs.readFileSync(`${__dirname}/../lib/quips/shortcuts.yaml`, 'utf-8'));
+    //quips.grammar = yaml.load(fs.readFileSync(`${__dirname}/../lib/quips/${level}.yaml`, 'utf-8'));
+  //} catch (e) {
+    //console.error(e);
+    //return;
+  //}
 
   let grammar = tracery.createGrammar({});
 
@@ -119,8 +123,8 @@ const init = (settings) => {
   }
 
   // build quips grammar
-  for (const field in quips.grammar) {
-    grammar.pushRules(field, quips.grammar[field]);
+  for (const field in quips[level]) {
+    grammar.pushRules(field, quips[level][field]);
   }
 
 

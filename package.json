@@ -7,7 +7,9 @@
     "test": "test"
   },
   "scripts": {
+    "convert-quips": "node ./lib/convert-quips-to-json",
     "build": "babel ./src --out-dir ./build",
+    "postbuild": "npm run convert-quips",
     "pretest": "npm run build",
     "test": "mocha",
     "pretest-brk": "npm run build",

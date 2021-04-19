@@ -6,13 +6,13 @@ function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o =
 
 function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
 
-var yaml = require('js-yaml');
-
-var fs = require('fs');
-
+//const yaml = require('js-yaml');
+//const fs = require('fs');
 var tracery = require('tracery-grammar');
 
 var mods = require('./tracery-mods');
+
+var quips = require('./quips');
 
 var init = function init(settings) {
   var seed = settings.seed;
@@ -25,18 +25,17 @@ var init = function init(settings) {
     tracery.setRandom(function () {
       return seed;
     });
-  }
+  } //let quips = JSON.parse(quipsData);
+  //let quips = {};
+  //try {
+  //quips.data = yaml.load(fs.readFileSync(`${__dirname}/../lib/quips/data.yaml`, 'utf-8'));
+  //quips.shortcuts = yaml.load(fs.readFileSync(`${__dirname}/../lib/quips/shortcuts.yaml`, 'utf-8'));
+  //quips.grammar = yaml.load(fs.readFileSync(`${__dirname}/../lib/quips/${level}.yaml`, 'utf-8'));
+  //} catch (e) {
+  //console.error(e);
+  //return;
+  //}
 
-  var quips = {};
-
-  try {
-    quips.data = yaml.load(fs.readFileSync("".concat(__dirname, "/../lib/quips/data.yaml"), 'utf-8'));
-    quips.shortcuts = yaml.load(fs.readFileSync("".concat(__dirname, "/../lib/quips/shortcuts.yaml"), 'utf-8'));
-    quips.grammar = yaml.load(fs.readFileSync("".concat(__dirname, "/../lib/quips/").concat(level, ".yaml"), 'utf-8'));
-  } catch (e) {
-    console.error(e);
-    return;
-  }
 
   var grammar = tracery.createGrammar({}); // populate data from gameEvent
 
@@ -137,8 +136,8 @@ var init = function init(settings) {
   } // build quips grammar
 
 
-  for (var _field in quips.grammar) {
-    grammar.pushRules(_field, quips.grammar[_field]);
+  for (var _field in quips[level]) {
+    grammar.pushRules(_field, quips[level][_field]);
   } // do quip overrides
 
 
