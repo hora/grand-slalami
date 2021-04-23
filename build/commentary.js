@@ -2,8 +2,7 @@
 
 var buildComment = function buildComment(settings, grammar) {
   var gameEvent = settings.gameEvent;
-  var mlustard = settings.mlustard; //let comment = '';
-  // check for game status
+  var mlustard = settings.mlustard; // check for game status
 
   switch (mlustard.gameStatus) {
     case 'beforeFirstPitch':
@@ -25,30 +24,38 @@ var buildComment = function buildComment(settings, grammar) {
 
     default:
       break;
-  } // check for outs
+  }
 
+  var comment = ''; // check for outs
 
   if (mlustard.out) {
     if (mlustard.gameStatus === 'halfInningEnd') {
-      return grammar.flatten('#lastOutOfInning#');
+      comment += grammar.flatten('#lastOutOfInning#');
     } else {
-      return grammar.flatten('#out#');
+      comment += grammar.flatten('#out#');
     }
   } // check for score
 
 
-  if (mlustard.runsScored !== 0) {
-    return grammar.flatten('#score#');
+  if (mlustard.runsScored !== 0 || mlustard.unrunsScored !== 0 || // score change due to salmon stealing runs
+  mlustard.special && mlustard.specialMeta.kind === 'salmon' && mlustard.specialMeta.details && mlustard.specialMeta.details.runsStolen.length || // score change from sun 2 smiling
+  mlustard.special && mlustard.specialMeta.kind === 'sun2' || // score change from black hole swallowing
+  mlustard.special && mlustard.specialMeta.kind === 'blackHole') {
+    if (comment) {
+      comment += grammar.flatten('#scoreAddon#');
+    } else {
+      comment += grammar.flatten('#score#');
+    }
   } // check if a batter just showed up at the plate
 
 
   if (mlustard.batterUp && gameEvent.baserunnerCount) {
-    return grammar.flatten('#batterUpRunners#');
-  } // if no special comment was returned, return the original update if it
+    comment += grammar.flatten('#batterUpRunners#');
+  } // return the comment if it was created, otherwise the original update if it
   // exists, otherwise an empty string
 
 
-  return gameEvent.lastUpdate || '';
+  return comment || gameEvent.lastUpdate || '';
 };
 
 module.exports = {

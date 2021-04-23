@@ -93,6 +93,50 @@ describe('grandSlalami', () => {
       assert.equal(commentary, expected);
     });
 
+    it('should update the total score on unruns', () => {
+      settings.gameEvent = gameEvents.coffeeUnruns;
+      const commentary = grandSlalami.getComment(settings);
+      const expected = "Anathema Elemefayo strikes out swinging. " +
+        "Bottom of 1, 1 out. " +
+        "" +
+        "It's the Breath Mints 1 and the Millennials -0.3.";
+
+      assert.equal(commentary, expected);
+    });
+
+    it('should update the total score on black hole swallow', () => {
+      settings.gameEvent = gameEvents.blackHoleSwallows;
+      const commentary = grandSlalami.getComment(settings);
+      const expected = "The Tigers collect 10!\n" +
+        "The Black Hole swallows the Runs and a Lift Win. " +
+        "It's the Lift 5 and the Tigers 0.";
+
+      assert.equal(commentary, expected);
+    });
+
+    it('should update the total score on sun 2 smile', () => {
+      settings.gameEvent = gameEvents.sun2smile;
+      const commentary = grandSlalami.getComment(settings);
+      const expected = "The Georgias collect 10! Sun 2 smiles.\n" +
+        "Sun 2 set a Win upon the Georgias. " +
+        "It's the Tigers 5 and the Georgias 0.";
+
+      assert.equal(commentary, expected);
+    });
+
+    it('should update the total score on salmon run steal', () => {
+      settings.gameEvent = gameEvents.salmonSteal;
+      const commentary = grandSlalami.getComment(settings);
+      const expected = "The Salmon swim upstream!\n" +
+        "Inning 5 begins again.\n" +
+        "3 of the Flowers's Runs are lost!\n" +
+        "2 of the Tigers's Runs are lost!\n" +
+        "Paula Turnip is caught in the bind! " +
+        "It's the Flowers 4 and the Tigers 1.";
+
+      assert.equal(commentary, expected);
+    });
+
     it('should not mention runners when a batter shows up to the plate if there are none', () => {
       settings.gameEvent = gameEvents.batter;
       const commentary = grandSlalami.getComment(settings);
