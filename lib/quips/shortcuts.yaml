@@ -16,4 +16,4 @@ aScore: "#awayScore#"
 #   ex: "first third"
 
 # the original comment from blaseball.com
-original: "#lastUpdate#"
+original: "#lastUpdate##scoreUpdate.spaced#"

@@ -97,6 +97,7 @@ describe('grandSlalami', () => {
       settings.gameEvent = gameEvents.coffeeUnruns;
       const commentary = grandSlalami.getComment(settings);
       const expected = "Anathema Elemefayo strikes out swinging. " +
+        "0.3 Unruns scored! " +
         "Bottom of 1, 1 out. " +
         "" +
         "It's the Breath Mints 1 and the Millennials -0.3.";

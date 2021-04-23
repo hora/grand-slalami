@@ -44,6 +44,9 @@ const init = (settings) => {
       }
 
       grammar.pushRules(field, data);
+
+    } else {
+      grammar.pushRules(field, '');
     }
   }
 

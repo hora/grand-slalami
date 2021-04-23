@@ -25,5 +25,14 @@ module.exports = {
       return s;
     }
   },
+
+  // adds a space before the word
+  spaced: (s) => {
+    if (s) {
+      return ` ${s}`;
+    } else {
+      return '';
+    }
+  },
 };
 

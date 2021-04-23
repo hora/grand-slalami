@@ -57,6 +57,8 @@ var init = function init(settings) {
         }
 
         grammar.pushRules(_field3, data);
+      } else {
+        grammar.pushRules(_field3, '');
       }
     } // current pitcher
 

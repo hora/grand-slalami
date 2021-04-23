@@ -23,5 +23,13 @@ module.exports = {
     } else {
       return s;
     }
+  },
+  // adds a space before the word
+  spaced: function spaced(s) {
+    if (s) {
+      return " ".concat(s);
+    } else {
+      return '';
+    }
   }
 };
