@@ -28,6 +28,9 @@ to:
 - [The Society for Internet Blaseball Research](https://sibr.dev/), for providing
   many of the ingredients that go into grand-slalami, including help with the
   APIs, coding advice, and overall Blaseball Knowledge.
+  And in particular, I'd like to thank the creators of
+  [jlohn-madden](https://github.com/jmaliksi/jlohn-mladden) for inspiration and
+  advice.
 
 ## Some last words
 

@@ -1,7 +1,7 @@
 {
   "name": "grand-slalami",
   "version": "1.0.0",
-  "description": "",
+  "description": "A utility for enhancing Blaseball updates as (colour) commentary",
   "main": "build/grand-slalami.js",
   "directories": {
     "test": "test"
